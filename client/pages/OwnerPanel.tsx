@@ -71,27 +71,43 @@ export default function OwnerPanel() {
   }, [scriptId, user, navigate]);
 
   const handleSave = async () => {
-    if (!scriptData) return;
+    if (!scriptData || !user?.id) return;
 
     setIsSaving(true);
 
-    // Simulate API save
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch(`/api/script/${scriptId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          code: editedCode,
+          owner: user.id,
+        }),
+      });
 
-    const updatedData = {
-      ...scriptData,
-      code: editedCode,
-      updatedAt: new Date().toISOString(),
-    };
+      if (response.ok) {
+        const updatedData = await response.json() as ScriptData;
+        setScriptData(updatedData);
+        setIsSaving(false);
 
-    localStorage.setItem(`script_${scriptId}`, JSON.stringify(updatedData));
-    setScriptData(updatedData);
-    setIsSaving(false);
-
-    toast({
-      title: "Script Updated",
-      description: "Your Lua script has been successfully updated.",
-    });
+        toast({
+          title: "Script Updated",
+          description: "Your Lua script has been successfully updated.",
+        });
+      } else {
+        throw new Error('Failed to save script');
+      }
+    } catch (error) {
+      console.error('Error saving script:', error);
+      setIsSaving(false);
+      toast({
+        title: "Error",
+        description: "Failed to save script. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const copyToClipboard = (text: string, label: string) => {
