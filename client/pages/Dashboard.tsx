@@ -1,15 +1,21 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
-import { Shield, Code2, LogOut, User, Lock } from 'lucide-react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Shield, Code2, LogOut, User, Lock } from "lucide-react";
 
 export default function Dashboard() {
-  const [luaCode, setLuaCode] = useState('');
+  const [luaCode, setLuaCode] = useState("");
   const [isProtecting, setIsProtecting] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -20,30 +26,30 @@ export default function Dashboard() {
     }
 
     setIsProtecting(true);
-    
+
     // Simulate protection process
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     // Generate a script ID and navigate to owner panel
     const scriptId = Math.random().toString(36).substr(2, 12);
-    
+
     // Store the script data (in a real app, this would be sent to a server)
     const scriptData = {
       id: scriptId,
       code: luaCode,
       createdAt: new Date().toISOString(),
-      owner: user?.id
+      owner: user?.id,
     };
-    
+
     localStorage.setItem(`script_${scriptId}`, JSON.stringify(scriptData));
     setIsProtecting(false);
-    
+
     navigate(`/owner/${scriptId}`);
   };
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -58,7 +64,7 @@ export default function Dashboard() {
             </div>
             <h1 className="text-xl font-bold text-white">LuaGuard</h1>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <User className="h-4 w-4 text-gray-400" />
@@ -81,9 +87,12 @@ export default function Dashboard() {
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold text-white mb-2">Protect Your Lua Script</h2>
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Protect Your Lua Script
+            </h2>
             <p className="text-gray-400">
-              Upload your Lua code and we'll secure it with enterprise-grade protection
+              Upload your Lua code and we'll secure it with enterprise-grade
+              protection
             </p>
           </div>
 
@@ -100,7 +109,8 @@ export default function Dashboard() {
             <CardContent className="space-y-6">
               <Alert className="border-yellow-500/50 bg-yellow-500/10">
                 <AlertDescription className="text-yellow-400">
-                  <strong>Important:</strong> Please enter your .lua code. DO NOT SCAN FOR SYNTAX ERRORS.
+                  <strong>Important:</strong> Please enter your .lua code. DO
+                  NOT SCAN FOR SYNTAX ERRORS.
                 </AlertDescription>
               </Alert>
 
@@ -109,11 +119,14 @@ export default function Dashboard() {
                   <label className="text-sm font-medium text-gray-300">
                     Lua Script Code
                   </label>
-                  <Badge variant="secondary" className="bg-gray-700 text-gray-300">
+                  <Badge
+                    variant="secondary"
+                    className="bg-gray-700 text-gray-300"
+                  >
                     .lua
                   </Badge>
                 </div>
-                
+
                 <Textarea
                   placeholder={`-- Enter your Lua code here
 -- Example:
@@ -125,7 +138,9 @@ hello()`}
                   value={luaCode}
                   onChange={(e) => setLuaCode(e.target.value)}
                   className="min-h-[300px] bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500 font-mono text-sm"
-                  style={{ fontFamily: 'Consolas, Monaco, "Courier New", monospace' }}
+                  style={{
+                    fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                  }}
                 />
               </div>
 

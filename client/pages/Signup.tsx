@@ -1,50 +1,56 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Shield, Code2 } from 'lucide-react';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Shield, Code2 } from "lucide-react";
 
 export default function Signup() {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const { signup, isLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!email || !username || !password || !confirmPassword) {
-      setError('Please fill in all fields');
+      setError("Please fill in all fields");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long');
+      setError("Password must be at least 6 characters long");
       return;
     }
 
     try {
       const success = await signup(email, username, password);
       if (success) {
-        navigate('/dashboard');
+        navigate("/dashboard");
       } else {
-        setError('Failed to create account. Please try again.');
+        setError("Failed to create account. Please try again.");
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError("An error occurred. Please try again.");
     }
   };
 
@@ -58,7 +64,9 @@ export default function Signup() {
               <Code2 className="h-6 w-6 text-green-400 absolute -bottom-1 -right-1" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-white">Join LuaGuard</CardTitle>
+          <CardTitle className="text-2xl font-bold text-white">
+            Join LuaGuard
+          </CardTitle>
           <CardDescription className="text-gray-400">
             Create your account and start protecting your Lua scripts
           </CardDescription>
@@ -67,12 +75,16 @@ export default function Signup() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <Alert className="border-red-500/50 bg-red-500/10">
-                <AlertDescription className="text-red-400">{error}</AlertDescription>
+                <AlertDescription className="text-red-400">
+                  {error}
+                </AlertDescription>
               </Alert>
             )}
-            
+
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-300">Email</Label>
+              <Label htmlFor="email" className="text-gray-300">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -83,9 +95,11 @@ export default function Signup() {
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-gray-300">Username</Label>
+              <Label htmlFor="username" className="text-gray-300">
+                Username
+              </Label>
               <Input
                 id="username"
                 type="text"
@@ -96,9 +110,11 @@ export default function Signup() {
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-300">Password</Label>
+              <Label htmlFor="password" className="text-gray-300">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
@@ -109,9 +125,11 @@ export default function Signup() {
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-gray-300">Confirm Password</Label>
+              <Label htmlFor="confirmPassword" className="text-gray-300">
+                Confirm Password
+              </Label>
               <Input
                 id="confirmPassword"
                 type="password"
@@ -122,20 +140,23 @@ export default function Signup() {
                 required
               />
             </div>
-            
-            <Button 
-              type="submit" 
+
+            <Button
+              type="submit"
               className="w-full bg-green-600 hover:bg-green-700 text-white"
               disabled={isLoading}
             >
-              {isLoading ? 'Creating account...' : 'Create Account'}
+              {isLoading ? "Creating account..." : "Create Account"}
             </Button>
           </form>
-          
+
           <div className="mt-6 text-center">
             <p className="text-gray-400">
-              Already have an account?{' '}
-              <Link to="/login" className="text-green-400 hover:text-green-300 underline">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-green-400 hover:text-green-300 underline"
+              >
                 Sign in
               </Link>
             </p>

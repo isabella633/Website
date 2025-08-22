@@ -1,7 +1,13 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Code2, Lock, Zap, Users, Globe } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Shield, Code2, Lock, Zap, Users, Globe } from "lucide-react";
 
 export default function Index() {
   return (
@@ -16,10 +22,13 @@ export default function Index() {
             </div>
             <h1 className="text-xl font-bold text-white">LuaGuard</h1>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <Link to="/login">
-              <Button variant="ghost" className="text-gray-300 hover:text-white">
+              <Button
+                variant="ghost"
+                className="text-gray-300 hover:text-white"
+              >
                 Sign In
               </Button>
             </Link>
@@ -41,26 +50,36 @@ export default function Index() {
               <Code2 className="h-10 w-10 text-green-400 absolute -bottom-2 -right-2" />
             </div>
           </div>
-          
+
           <h1 className="text-5xl font-bold text-white mb-6">
             Protect Your Lua Scripts with
-            <span className="text-green-400 block">Enterprise-Grade Security</span>
+            <span className="text-green-400 block">
+              Enterprise-Grade Security
+            </span>
           </h1>
-          
+
           <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-            Upload your Lua code and get instant protection with secure raw links. 
-            No syntax scanning, just pure protection for your valuable scripts.
+            Upload your Lua code and get instant protection with secure raw
+            links. No syntax scanning, just pure protection for your valuable
+            scripts.
           </p>
-          
+
           <div className="flex justify-center space-x-4">
             <Link to="/signup">
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
+              <Button
+                size="lg"
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-3"
+              >
                 <Shield className="h-5 w-5 mr-2" />
                 Start Protecting Scripts
               </Button>
             </Link>
             <Link to="/login">
-              <Button size="lg" variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700 px-8 py-3">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-gray-600 text-gray-300 hover:bg-gray-700 px-8 py-3"
+              >
                 Sign In to Dashboard
               </Button>
             </Link>
@@ -74,7 +93,8 @@ export default function Index() {
               <Lock className="h-8 w-8 text-green-500 mb-2" />
               <CardTitle className="text-white">Instant Protection</CardTitle>
               <CardDescription className="text-gray-400">
-                Upload your .lua files and get immediate enterprise-grade protection
+                Upload your .lua files and get immediate enterprise-grade
+                protection
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -123,39 +143,49 @@ export default function Index() {
 
         {/* How It Works */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white mb-8">How LuaGuard Works</h2>
-          
+          <h2 className="text-3xl font-bold text-white mb-8">
+            How LuaGuard Works
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="bg-green-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold">1</span>
               </div>
               <h3 className="text-white font-medium mb-2">Sign Up</h3>
-              <p className="text-gray-400 text-sm">Create your account in seconds</p>
+              <p className="text-gray-400 text-sm">
+                Create your account in seconds
+              </p>
             </div>
-            
+
             <div className="text-center">
               <div className="bg-green-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold">2</span>
               </div>
               <h3 className="text-white font-medium mb-2">Upload Script</h3>
-              <p className="text-gray-400 text-sm">Paste your .lua code (no syntax checking)</p>
+              <p className="text-gray-400 text-sm">
+                Paste your .lua code (no syntax checking)
+              </p>
             </div>
-            
+
             <div className="text-center">
               <div className="bg-green-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold">3</span>
               </div>
               <h3 className="text-white font-medium mb-2">Protect Script</h3>
-              <p className="text-gray-400 text-sm">Click protect and get instant security</p>
+              <p className="text-gray-400 text-sm">
+                Click protect and get instant security
+              </p>
             </div>
-            
+
             <div className="text-center">
               <div className="bg-green-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold">4</span>
               </div>
               <h3 className="text-white font-medium mb-2">Manage & Share</h3>
-              <p className="text-gray-400 text-sm">Access owner panel and get raw links</p>
+              <p className="text-gray-400 text-sm">
+                Access owner panel and get raw links
+              </p>
             </div>
           </div>
         </div>
@@ -166,10 +196,14 @@ export default function Index() {
             Ready to Protect Your Lua Scripts?
           </h2>
           <p className="text-gray-300 mb-6">
-            Join thousands of developers who trust LuaGuard with their valuable code
+            Join thousands of developers who trust LuaGuard with their valuable
+            code
           </p>
           <Link to="/signup">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
+            <Button
+              size="lg"
+              className="bg-green-600 hover:bg-green-700 text-white px-8 py-3"
+            >
               <Shield className="h-5 w-5 mr-2" />
               Get Started Free
             </Button>
@@ -189,7 +223,8 @@ export default function Index() {
               <span className="text-white font-medium">LuaGuard</span>
             </div>
             <p className="text-gray-400 text-sm">
-              © 2024 LuaGuard. Protecting Lua scripts with enterprise-grade security.
+              © 2024 LuaGuard. Protecting Lua scripts with enterprise-grade
+              security.
             </p>
           </div>
         </div>

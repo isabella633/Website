@@ -1,38 +1,44 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Shield, Code2 } from 'lucide-react';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Shield, Code2 } from "lucide-react";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { login, isLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!email || !password) {
-      setError('Please fill in all fields');
+      setError("Please fill in all fields");
       return;
     }
 
     try {
       const success = await login(email, password);
       if (success) {
-        navigate('/dashboard');
+        navigate("/dashboard");
       } else {
-        setError('Invalid email or password');
+        setError("Invalid email or password");
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError("An error occurred. Please try again.");
     }
   };
 
@@ -46,7 +52,9 @@ export default function Login() {
               <Code2 className="h-6 w-6 text-green-400 absolute -bottom-1 -right-1" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-white">LuaGuard</CardTitle>
+          <CardTitle className="text-2xl font-bold text-white">
+            LuaGuard
+          </CardTitle>
           <CardDescription className="text-gray-400">
             Protect your Lua scripts with enterprise-grade security
           </CardDescription>
@@ -55,12 +63,16 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <Alert className="border-red-500/50 bg-red-500/10">
-                <AlertDescription className="text-red-400">{error}</AlertDescription>
+                <AlertDescription className="text-red-400">
+                  {error}
+                </AlertDescription>
               </Alert>
             )}
-            
+
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-300">Email</Label>
+              <Label htmlFor="email" className="text-gray-300">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -71,9 +83,11 @@ export default function Login() {
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-300">Password</Label>
+              <Label htmlFor="password" className="text-gray-300">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
@@ -84,20 +98,23 @@ export default function Login() {
                 required
               />
             </div>
-            
-            <Button 
-              type="submit" 
+
+            <Button
+              type="submit"
               className="w-full bg-green-600 hover:bg-green-700 text-white"
               disabled={isLoading}
             >
-              {isLoading ? 'Signing in...' : 'Sign In'}
+              {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
-          
+
           <div className="mt-6 text-center">
             <p className="text-gray-400">
-              Don't have an account?{' '}
-              <Link to="/signup" className="text-green-400 hover:text-green-300 underline">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="text-green-400 hover:text-green-300 underline"
+              >
                 Sign up
               </Link>
             </p>

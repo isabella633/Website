@@ -1,16 +1,31 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Shield, Code2, LogOut, User, Copy, Save, ExternalLink, ArrowLeft } from 'lucide-react';
-import { toast } from '@/components/ui/use-toast';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Shield,
+  Code2,
+  LogOut,
+  User,
+  Copy,
+  Save,
+  ExternalLink,
+  ArrowLeft,
+} from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 interface ScriptData {
   id: string;
@@ -22,7 +37,7 @@ interface ScriptData {
 export default function OwnerPanel() {
   const { scriptId } = useParams<{ scriptId: string }>();
   const [scriptData, setScriptData] = useState<ScriptData | null>(null);
-  const [editedCode, setEditedCode] = useState('');
+  const [editedCode, setEditedCode] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -38,10 +53,10 @@ export default function OwnerPanel() {
           setScriptData(data);
           setEditedCode(data.code);
         } else {
-          navigate('/dashboard');
+          navigate("/dashboard");
         }
       } else {
-        navigate('/dashboard');
+        navigate("/dashboard");
       }
     }
   }, [scriptId, user, navigate]);
@@ -50,20 +65,20 @@ export default function OwnerPanel() {
     if (!scriptData) return;
 
     setIsSaving(true);
-    
+
     // Simulate API save
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     const updatedData = {
       ...scriptData,
       code: editedCode,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
-    
+
     localStorage.setItem(`script_${scriptId}`, JSON.stringify(updatedData));
     setScriptData(updatedData);
     setIsSaving(false);
-    
+
     toast({
       title: "Script Updated",
       description: "Your Lua script has been successfully updated.",
@@ -80,7 +95,7 @@ export default function OwnerPanel() {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   if (!scriptData) {
@@ -112,7 +127,7 @@ export default function OwnerPanel() {
               Owner Panel
             </Badge>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <User className="h-4 w-4 text-gray-400" />
@@ -135,7 +150,9 @@ export default function OwnerPanel() {
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">Script Management</h2>
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Script Management
+            </h2>
             <p className="text-gray-400">
               Manage your protected Lua script and access raw links
             </p>
@@ -143,13 +160,22 @@ export default function OwnerPanel() {
 
           <Tabs defaultValue="editor" className="space-y-6">
             <TabsList className="bg-gray-800 border-gray-700">
-              <TabsTrigger value="editor" className="data-[state=active]:bg-green-600">
+              <TabsTrigger
+                value="editor"
+                className="data-[state=active]:bg-green-600"
+              >
                 Script Editor
               </TabsTrigger>
-              <TabsTrigger value="links" className="data-[state=active]:bg-green-600">
+              <TabsTrigger
+                value="links"
+                className="data-[state=active]:bg-green-600"
+              >
                 Raw Links
               </TabsTrigger>
-              <TabsTrigger value="info" className="data-[state=active]:bg-green-600">
+              <TabsTrigger
+                value="info"
+                className="data-[state=active]:bg-green-600"
+              >
                 Script Info
               </TabsTrigger>
             </TabsList>
@@ -157,7 +183,9 @@ export default function OwnerPanel() {
             <TabsContent value="editor">
               <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-white">Edit Script Source Code</CardTitle>
+                  <CardTitle className="text-white">
+                    Edit Script Source Code
+                  </CardTitle>
                   <CardDescription className="text-gray-400">
                     Modify your Lua script. Changes are saved securely.
                   </CardDescription>
@@ -167,9 +195,11 @@ export default function OwnerPanel() {
                     value={editedCode}
                     onChange={(e) => setEditedCode(e.target.value)}
                     className="min-h-[400px] bg-gray-900/50 border-gray-600 text-white font-mono text-sm"
-                    style={{ fontFamily: 'Consolas, Monaco, "Courier New", monospace' }}
+                    style={{
+                      fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                    }}
                   />
-                  
+
                   <div className="flex justify-between items-center">
                     <div className="text-sm text-gray-400">
                       Code length: {editedCode.length} characters
@@ -199,7 +229,9 @@ export default function OwnerPanel() {
             <TabsContent value="links">
               <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-white">Raw Script Access</CardTitle>
+                  <CardTitle className="text-white">
+                    Raw Script Access
+                  </CardTitle>
                   <CardDescription className="text-gray-400">
                     Direct links to access your Lua script content
                   </CardDescription>
@@ -216,7 +248,7 @@ export default function OwnerPanel() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => copyToClipboard(rawLink, 'Raw link')}
+                        onClick={() => copyToClipboard(rawLink, "Raw link")}
                         className="border-gray-600 text-gray-300 hover:bg-gray-700"
                       >
                         <Copy className="h-4 w-4" />
@@ -224,18 +256,19 @@ export default function OwnerPanel() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => window.open(rawLink, '_blank')}
+                        onClick={() => window.open(rawLink, "_blank")}
                         className="border-gray-600 text-gray-300 hover:bg-gray-700"
                       >
                         <ExternalLink className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
-                  
+
                   <Alert className="border-blue-500/50 bg-blue-500/10">
                     <AlertDescription className="text-blue-400">
-                      This raw link provides direct access to your Lua script content. 
-                      Share it carefully as anyone with this link can view your script.
+                      This raw link provides direct access to your Lua script
+                      content. Share it carefully as anyone with this link can
+                      view your script.
                     </AlertDescription>
                   </Alert>
                 </CardContent>
@@ -245,7 +278,9 @@ export default function OwnerPanel() {
             <TabsContent value="info">
               <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-white">Script Information</CardTitle>
+                  <CardTitle className="text-white">
+                    Script Information
+                  </CardTitle>
                   <CardDescription className="text-gray-400">
                     Details about your protected script
                   </CardDescription>
@@ -263,14 +298,16 @@ export default function OwnerPanel() {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => copyToClipboard(scriptData.id, 'Script ID')}
+                          onClick={() =>
+                            copyToClipboard(scriptData.id, "Script ID")
+                          }
                           className="border-gray-600 text-gray-300 hover:bg-gray-700"
                         >
                           <Copy className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
-                    
+
                     <div>
                       <Label className="text-gray-300">Created</Label>
                       <Input
@@ -280,12 +317,16 @@ export default function OwnerPanel() {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="pt-4 border-t border-gray-700">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="text-white font-medium">Protection Status</h4>
-                        <p className="text-gray-400 text-sm">Your script is protected and accessible only to you</p>
+                        <h4 className="text-white font-medium">
+                          Protection Status
+                        </h4>
+                        <p className="text-gray-400 text-sm">
+                          Your script is protected and accessible only to you
+                        </p>
                       </div>
                       <Badge className="bg-green-600 text-white">
                         <Shield className="h-3 w-3 mr-1" />
