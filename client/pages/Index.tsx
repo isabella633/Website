@@ -20,7 +20,7 @@ export default function Index() {
               <Shield className="h-8 w-8 text-green-500" />
               <Code2 className="h-4 w-4 text-green-400 absolute -bottom-1 -right-1" />
             </div>
-            <h1 className="text-xl font-bold text-white">LuaGuard</h1>
+            <h1 className="text-xl font-bold text-white">defendlua</h1>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -144,7 +144,7 @@ export default function Index() {
         {/* How It Works */}
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-white mb-8">
-            How LuaGuard Works
+            How defendlua Works
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -196,7 +196,7 @@ export default function Index() {
             Ready to Protect Your Lua Scripts?
           </h2>
           <p className="text-gray-300 mb-6">
-            Join thousands of developers who trust LuaGuard with their valuable
+            Join thousands of developers who trust defendlua with their valuable
             code
           </p>
           <Link to="/signup">
@@ -220,10 +220,10 @@ export default function Index() {
                 <Shield className="h-6 w-6 text-green-500" />
                 <Code2 className="h-3 w-3 text-green-400 absolute -bottom-1 -right-1" />
               </div>
-              <span className="text-white font-medium">LuaGuard</span>
+              <span className="text-white font-medium">defendlua</span>
             </div>
             <p className="text-gray-400 text-sm">
-              © 2024 LuaGuard. Protecting Lua scripts with enterprise-grade
+              © 2024 defendlua. Protecting Lua scripts with enterprise-grade
               security.
             </p>
           </div>
