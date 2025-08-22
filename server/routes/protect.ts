@@ -36,3 +36,7 @@ export const handleProtectScript: RequestHandler = (req, res) => {
 export const getScript = (scriptId: string): ScriptData | undefined => {
   return scripts.get(scriptId);
 };
+
+export const updateScript = (scriptId: string, updatedData: ScriptData): void => {
+  scripts.set(scriptId, updatedData);
+};
