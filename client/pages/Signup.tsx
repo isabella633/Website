@@ -65,7 +65,7 @@ export default function Signup() {
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-white">
-            Join LuaGuard
+            Join defendlua
           </CardTitle>
           <CardDescription className="text-gray-400">
             Create your account and start protecting your Lua scripts
