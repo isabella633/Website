@@ -62,7 +62,7 @@ export default function Dashboard() {
               <Shield className="h-8 w-8 text-green-500" />
               <Code2 className="h-4 w-4 text-green-400 absolute -bottom-1 -right-1" />
             </div>
-            <h1 className="text-xl font-bold text-white">LuaGuard</h1>
+            <h1 className="text-xl font-bold text-white">defendlua</h1>
           </div>
 
           <div className="flex items-center space-x-4">
