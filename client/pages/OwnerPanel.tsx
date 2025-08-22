@@ -266,9 +266,8 @@ export default function OwnerPanel() {
 
                   <Alert className="border-blue-500/50 bg-blue-500/10">
                     <AlertDescription className="text-blue-400">
-                      This raw link provides direct access to your Lua script
-                      content. Share it carefully as anyone with this link can
-                      view your script.
+                      This raw link displays your Lua script directly in the browser.
+                      Share it carefully as anyone with this link can view your script content.
                     </AlertDescription>
                   </Alert>
                 </CardContent>
