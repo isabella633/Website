@@ -43,10 +43,6 @@ export const handleUpdateScript: RequestHandler = (req, res) => {
     updatedAt: new Date().toISOString()
   };
 
-  // In the protect.ts file, I need to add an update function
-  // For now, I'll import the scripts Map directly
-  const { scripts } = require('./protect');
-  scripts.set(scriptId, updatedScript);
-
+  updateScript(scriptId, updatedScript);
   res.json(updatedScript);
 };
