@@ -22,6 +22,8 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
   app.post("/api/protect", handleProtectScript);
+  app.get("/api/script/:scriptId", handleGetScript);
+  app.put("/api/script/:scriptId", handleUpdateScript);
   app.get("/api/script/:scriptId/raw", handleScriptRaw);
 
   return app;
