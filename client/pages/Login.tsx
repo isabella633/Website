@@ -53,7 +53,7 @@ export default function Login() {
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-white">
-            LuaGuard
+            defendlua
           </CardTitle>
           <CardDescription className="text-gray-400">
             Protect your Lua scripts with enterprise-grade security
