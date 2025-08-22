@@ -50,7 +50,7 @@ export default function OwnerPanel() {
         try {
           const response = await fetch(`/api/script/${scriptId}`);
           if (response.ok) {
-            const data = await response.json() as ScriptData;
+            const data = (await response.json()) as ScriptData;
             if (data.owner === user.id) {
               setScriptData(data);
               setEditedCode(data.code);
@@ -61,7 +61,7 @@ export default function OwnerPanel() {
             navigate("/dashboard");
           }
         } catch (error) {
-          console.error('Error fetching script data:', error);
+          console.error("Error fetching script data:", error);
           navigate("/dashboard");
         }
       }
@@ -77,9 +77,9 @@ export default function OwnerPanel() {
 
     try {
       const response = await fetch(`/api/script/${scriptId}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           code: editedCode,
@@ -88,7 +88,7 @@ export default function OwnerPanel() {
       });
 
       if (response.ok) {
-        const updatedData = await response.json() as ScriptData;
+        const updatedData = (await response.json()) as ScriptData;
         setScriptData(updatedData);
         setIsSaving(false);
 
@@ -97,10 +97,10 @@ export default function OwnerPanel() {
           description: "Your Lua script has been successfully updated.",
         });
       } else {
-        throw new Error('Failed to save script');
+        throw new Error("Failed to save script");
       }
     } catch (error) {
-      console.error('Error saving script:', error);
+      console.error("Error saving script:", error);
       setIsSaving(false);
       toast({
         title: "Error",
@@ -291,8 +291,9 @@ export default function OwnerPanel() {
 
                   <Alert className="border-blue-500/50 bg-blue-500/10">
                     <AlertDescription className="text-blue-400">
-                      This raw link displays your Lua script directly in the browser.
-                      Share it carefully as anyone with this link can view your script content.
+                      This raw link displays your Lua script directly in the
+                      browser. Share it carefully as anyone with this link can
+                      view your script content.
                     </AlertDescription>
                   </Alert>
                 </CardContent>

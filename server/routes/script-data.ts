@@ -22,7 +22,9 @@ export const handleUpdateScript: RequestHandler = (req, res) => {
   const { code, owner } = req.body;
 
   if (!scriptId || !code || !owner) {
-    return res.status(400).json({ error: "Script ID, code, and owner are required" });
+    return res
+      .status(400)
+      .json({ error: "Script ID, code, and owner are required" });
   }
 
   const scriptData = getScript(scriptId);
@@ -40,7 +42,7 @@ export const handleUpdateScript: RequestHandler = (req, res) => {
   const updatedScript = {
     ...scriptData,
     code,
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   };
 
   updateScript(scriptId, updatedScript);

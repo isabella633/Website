@@ -14,29 +14,32 @@ export const handleProtectScript: RequestHandler = (req, res) => {
   const { code, owner } = req.body;
 
   if (!code || !owner) {
-    return res.status(400).json({ error: 'Code and owner are required' });
+    return res.status(400).json({ error: "Code and owner are required" });
   }
 
   // Generate script ID
   const scriptId = Math.random().toString(36).substr(2, 12);
-  
+
   const scriptData: ScriptData = {
     id: scriptId,
     code,
     createdAt: new Date().toISOString(),
-    owner
+    owner,
   };
 
   // Store the script
   scripts.set(scriptId, scriptData);
 
-  res.json({ scriptId, message: 'Script protected successfully' });
+  res.json({ scriptId, message: "Script protected successfully" });
 };
 
 export const getScript = (scriptId: string): ScriptData | undefined => {
   return scripts.get(scriptId);
 };
 
-export const updateScript = (scriptId: string, updatedData: ScriptData): void => {
+export const updateScript = (
+  scriptId: string,
+  updatedData: ScriptData,
+): void => {
   scripts.set(scriptId, updatedData);
 };

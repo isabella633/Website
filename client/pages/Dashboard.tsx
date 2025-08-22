@@ -29,10 +29,10 @@ export default function Dashboard() {
 
     try {
       // Send script to server for protection
-      const response = await fetch('/api/protect', {
-        method: 'POST',
+      const response = await fetch("/api/protect", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           code: luaCode,
@@ -41,7 +41,7 @@ export default function Dashboard() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to protect script');
+        throw new Error("Failed to protect script");
       }
 
       const data = await response.json();
@@ -50,7 +50,7 @@ export default function Dashboard() {
       setIsProtecting(false);
       navigate(`/owner/${scriptId}`);
     } catch (error) {
-      console.error('Error protecting script:', error);
+      console.error("Error protecting script:", error);
       setIsProtecting(false);
       // You could add error handling UI here
     }
