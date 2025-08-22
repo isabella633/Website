@@ -27,24 +27,33 @@ export default function Dashboard() {
 
     setIsProtecting(true);
 
-    // Simulate protection process
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Send script to server for protection
+      const response = await fetch('/api/protect', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          code: luaCode,
+          owner: user?.id,
+        }),
+      });
 
-    // Generate a script ID and navigate to owner panel
-    const scriptId = Math.random().toString(36).substr(2, 12);
+      if (!response.ok) {
+        throw new Error('Failed to protect script');
+      }
 
-    // Store the script data (in a real app, this would be sent to a server)
-    const scriptData = {
-      id: scriptId,
-      code: luaCode,
-      createdAt: new Date().toISOString(),
-      owner: user?.id,
-    };
+      const data = await response.json();
+      const scriptId = data.scriptId;
 
-    localStorage.setItem(`script_${scriptId}`, JSON.stringify(scriptData));
-    setIsProtecting(false);
-
-    navigate(`/owner/${scriptId}`);
+      setIsProtecting(false);
+      navigate(`/owner/${scriptId}`);
+    } catch (error) {
+      console.error('Error protecting script:', error);
+      setIsProtecting(false);
+      // You could add error handling UI here
+    }
   };
 
   const handleLogout = () => {
