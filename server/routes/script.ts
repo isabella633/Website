@@ -23,12 +23,8 @@ print("Script ID: ${scriptId}")
 -- This endpoint provides raw access to the Lua code
 `;
 
-  // Set appropriate headers for Lua content
+  // Set appropriate headers for Lua content to display in browser
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
-  res.setHeader(
-    "Content-Disposition",
-    `attachment; filename="script_${scriptId}.lua"`,
-  );
 
   res.send(luaScript);
 };
