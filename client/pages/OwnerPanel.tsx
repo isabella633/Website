@@ -122,7 +122,7 @@ export default function OwnerPanel() {
               <Shield className="h-8 w-8 text-green-500" />
               <Code2 className="h-4 w-4 text-green-400 absolute -bottom-1 -right-1" />
             </div>
-            <h1 className="text-xl font-bold text-white">LuaGuard</h1>
+            <h1 className="text-xl font-bold text-white">defendlua</h1>
             <Badge variant="secondary" className="bg-green-600 text-white">
               Owner Panel
             </Badge>
