@@ -8,7 +8,7 @@ interface ScriptData {
 }
 
 // In-memory storage for demo (in production, use a database)
-const scripts: Map<string, ScriptData> = new Map();
+export const scripts: Map<string, ScriptData> = new Map();
 
 export const handleProtectScript: RequestHandler = (req, res) => {
   const { code, owner } = req.body;
