@@ -103,14 +103,13 @@ export default function Dashboard() {
                 Script Protection Panel
               </CardTitle>
               <CardDescription className="text-gray-400">
-                Enter your .lua code below. We do not scan for syntax errors.
+                Upload your Lua script code for secure protection and management.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <Alert className="border-yellow-500/50 bg-yellow-500/10">
                 <AlertDescription className="text-yellow-400">
-                  <strong>Important:</strong> Please enter your .lua code. DO
-                  NOT SCAN FOR SYNTAX ERRORS.
+                  <strong>Note:</strong> We don't perform syntax validation on your code. Please ensure your Lua script is error-free before protecting it, as the code will be stored and served exactly as you provide it.
                 </AlertDescription>
               </Alert>
 
