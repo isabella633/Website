@@ -45,20 +45,29 @@ export default function OwnerPanel() {
   const rawLink = `${window.location.origin}/api/script/${scriptId}/raw`;
 
   useEffect(() => {
-    if (scriptId) {
-      const stored = localStorage.getItem(`script_${scriptId}`);
-      if (stored) {
-        const data = JSON.parse(stored) as ScriptData;
-        if (data.owner === user?.id) {
-          setScriptData(data);
-          setEditedCode(data.code);
-        } else {
+    const fetchScriptData = async () => {
+      if (scriptId && user?.id) {
+        try {
+          const response = await fetch(`/api/script/${scriptId}`);
+          if (response.ok) {
+            const data = await response.json() as ScriptData;
+            if (data.owner === user.id) {
+              setScriptData(data);
+              setEditedCode(data.code);
+            } else {
+              navigate("/dashboard");
+            }
+          } else {
+            navigate("/dashboard");
+          }
+        } catch (error) {
+          console.error('Error fetching script data:', error);
           navigate("/dashboard");
         }
-      } else {
-        navigate("/dashboard");
       }
-    }
+    };
+
+    fetchScriptData();
   }, [scriptId, user, navigate]);
 
   const handleSave = async () => {
