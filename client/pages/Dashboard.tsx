@@ -412,34 +412,52 @@ export default function Dashboard() {
                 </AlertDescription>
               </Alert>
 
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-gray-300">
-                    Lua Script Code
-                  </label>
-                  <Badge
-                    variant="secondary"
-                    className="bg-gray-700 text-gray-300"
-                  >
-                    .lua
-                  </Badge>
+              <div className="space-y-6">
+                {/* Script Name Input */}
+                <div className="space-y-2">
+                  <Label htmlFor="scriptName" className="text-sm font-medium text-gray-300">
+                    Script Name
+                  </Label>
+                  <Input
+                    id="scriptName"
+                    placeholder="Enter a name for your script (optional)"
+                    value={scriptName}
+                    onChange={(e) => setScriptName(e.target.value)}
+                    className="bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500"
+                  />
                 </div>
 
-                <Textarea
-                  placeholder={`-- Enter your Lua code here
+                {/* Script Code Section */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="luaCode" className="text-sm font-medium text-gray-300">
+                      Lua Script Code
+                    </Label>
+                    <Badge
+                      variant="secondary"
+                      className="bg-gray-700 text-gray-300"
+                    >
+                      .lua
+                    </Badge>
+                  </div>
+
+                  <Textarea
+                    id="luaCode"
+                    placeholder={`-- Enter your Lua code here
 -- Example:
 local function hello()
     print("Hello, World!")
 end
 
 hello()`}
-                  value={luaCode}
-                  onChange={(e) => setLuaCode(e.target.value)}
-                  className="min-h-[300px] bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500 font-mono text-sm"
-                  style={{
-                    fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-                  }}
-                />
+                    value={luaCode}
+                    onChange={(e) => setLuaCode(e.target.value)}
+                    className="min-h-[300px] bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500 font-mono text-sm"
+                    style={{
+                      fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                    }}
+                  />
+                </div>
               </div>
 
               <div className="flex justify-center">
