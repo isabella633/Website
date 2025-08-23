@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { getScript, updateScript } from "./protect";
+import { getScript, updateScript, scripts } from "./protect";
 
 export const handleGetScript: RequestHandler = (req, res) => {
   const { scriptId } = req.params;
