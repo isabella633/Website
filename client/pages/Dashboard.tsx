@@ -268,27 +268,93 @@ export default function Dashboard() {
                 {userScripts.map((script) => (
                   <Card key={script.id} className="border-gray-700 bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/50 transition-colors">
                     <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between">
-                        <Badge variant="secondary" className="bg-green-600 text-white text-xs">
-                          {script.codeLength} chars
-                        </Badge>
-                        <div className="flex space-x-1">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => navigate(`/owner/${script.id}`)}
-                            className="h-8 w-8 p-0 text-gray-400 hover:text-white"
-                          >
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => window.open(`/api/script/${script.id}/raw`, '_blank')}
-                            className="h-8 w-8 p-0 text-gray-400 hover:text-white"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </Button>
+                      <div className="space-y-3">
+                        {/* Script Name Row */}
+                        <div className="flex items-center justify-between">
+                          {editingScriptId === script.id ? (
+                            <div className="flex items-center space-x-2 flex-1">
+                              <Input
+                                value={editingName}
+                                onChange={(e) => setEditingName(e.target.value)}
+                                className="bg-gray-900/50 border-gray-600 text-white text-sm h-8"
+                                placeholder="Script name"
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') handleSaveName(script.id);
+                                  if (e.key === 'Escape') handleCancelEdit();
+                                }}
+                                autoFocus
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleSaveName(script.id)}
+                                className="h-8 w-8 p-0 text-green-400 hover:text-green-300"
+                              >
+                                <Check className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={handleCancelEdit}
+                                className="h-8 w-8 p-0 text-red-400 hover:text-red-300"
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          ) : (
+                            <>
+                              <h3 className="text-white font-medium text-sm truncate flex-1 mr-2">
+                                {script.name}
+                              </h3>
+                              <div className="flex space-x-1">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => handleEditName(script)}
+                                  className="h-8 w-8 p-0 text-gray-400 hover:text-white"
+                                  title="Edit name"
+                                >
+                                  <Edit2 className="h-3 w-3" />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => handleDeleteScript(script.id, script.name)}
+                                  className="h-8 w-8 p-0 text-gray-400 hover:text-red-400"
+                                  title="Delete script"
+                                >
+                                  <Trash2 className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </>
+                          )}
+                        </div>
+
+                        {/* Actions Row */}
+                        <div className="flex items-center justify-between">
+                          <Badge variant="secondary" className="bg-green-600 text-white text-xs">
+                            {script.codeLength} chars
+                          </Badge>
+                          <div className="flex space-x-1">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => navigate(`/owner/${script.id}`)}
+                              className="h-8 w-8 p-0 text-gray-400 hover:text-white"
+                              title="Manage script"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => window.open(`/api/script/${script.id}/raw`, '_blank')}
+                              className="h-8 w-8 p-0 text-gray-400 hover:text-white"
+                              title="View raw script"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </CardHeader>
