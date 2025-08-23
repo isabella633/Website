@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 
 interface ScriptData {
   id: string;
+  name: string;
   code: string;
   createdAt: string;
   owner: string;
