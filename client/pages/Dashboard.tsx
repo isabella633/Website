@@ -32,6 +32,8 @@ export default function Dashboard() {
   const [isProtecting, setIsProtecting] = useState(false);
   const [userScripts, setUserScripts] = useState<ScriptSummary[]>([]);
   const [isLoadingScripts, setIsLoadingScripts] = useState(true);
+  const [editingScriptId, setEditingScriptId] = useState<string | null>(null);
+  const [editingName, setEditingName] = useState("");
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
