@@ -14,21 +14,25 @@ export const scripts: Map<string, ScriptData> = new Map();
 // Add some sample data for demonstration
 scripts.set("demo1", {
   id: "demo1",
-  code: `-- Lua Hello World Example
-print("Hello, World!")
-print("This is a demo Lua script")
+  name: "Simple Calculator",
+  code: `-- Simple Calculator
+function add(a, b) return a + b end
+function subtract(a, b) return a - b end
+function multiply(a, b) return a * b end
+function divide(a, b) return b ~= 0 and a / b or "Cannot divide by zero" end
 
-function greet(name)
-    return "Hello, " .. name .. "!"
-end
-
-print(greet("defendlua"))`,
+print("Calculator Demo:")
+print("5 + 3 =", add(5, 3))
+print("10 - 4 =", subtract(10, 4))
+print("7 * 6 =", multiply(7, 6))
+print("15 / 3 =", divide(15, 3))`,
   createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
   owner: "demo-user"
 });
 
 scripts.set("demo2", {
   id: "demo2",
+  name: "Player Scoring System",
   code: `-- Advanced Lua Script
 local players = {}
 
@@ -60,17 +64,16 @@ print("Top player: " .. winner.name .. " with score: " .. winner.score)`,
 
 scripts.set("demo3", {
   id: "demo3",
-  code: `-- Simple Calculator
-function add(a, b) return a + b end
-function subtract(a, b) return a - b end
-function multiply(a, b) return a * b end
-function divide(a, b) return b ~= 0 and a / b or "Cannot divide by zero" end
+  name: "Hello World Demo",
+  code: `-- Lua Hello World Example
+print("Hello, World!")
+print("This is a demo Lua script")
 
-print("Calculator Demo:")
-print("5 + 3 =", add(5, 3))
-print("10 - 4 =", subtract(10, 4))
-print("7 * 6 =", multiply(7, 6))
-print("15 / 3 =", divide(15, 3))`,
+function greet(name)
+    return "Hello, " .. name .. "!"
+end
+
+print(greet("defendlua"))`,
   createdAt: new Date().toISOString(), // Now
   owner: "demo-user"
 });
