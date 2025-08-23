@@ -11,7 +11,7 @@ Visit the live website: [https://isabella633.github.io/Website/](https://isabell
 ## ✨ Features
 
 - 🔒 **Advanced Security** - Enterprise-grade protection for your Lua scripts
-- ⚡ **Lightning Fast** - Optimized performance without compromising security  
+- ⚡ **Lightning Fast** - Optimized performance without compromising security
 - 🛠️ **Developer Friendly** - Intuitive tools and comprehensive documentation
 - 📱 **Responsive Design** - Works perfectly on desktop and mobile devices
 
@@ -20,19 +20,21 @@ Visit the live website: [https://isabella633.github.io/Website/](https://isabell
 This is a static website that requires no build process. To run locally:
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/isabella633/Website.git
    cd Website
    ```
 
 2. Open `index.html` in your browser or use a simple HTTP server:
+
    ```bash
    # Using Python
    python -m http.server 8000
-   
+
    # Using Node.js
    npx serve .
-   
+
    # Using PHP
    php -S localhost:8000
    ```
