@@ -13,6 +13,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Code2, LogOut, User, Lock } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 export default function Dashboard() {
   const [luaCode, setLuaCode] = useState("");
