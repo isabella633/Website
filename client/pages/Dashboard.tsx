@@ -88,6 +88,10 @@ export default function Dashboard() {
       const scriptId = data.scriptId;
 
       setIsProtecting(false);
+
+      // Refresh the scripts list
+      await fetchUserScripts();
+
       navigate(`/owner/${scriptId}`);
     } catch (error) {
       console.error("Error protecting script:", error);
