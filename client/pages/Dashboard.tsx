@@ -15,9 +15,19 @@ import { Badge } from "@/components/ui/badge";
 import { Shield, Code2, LogOut, User, Lock, ExternalLink, Eye } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
+interface ScriptSummary {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  codeLength: number;
+  codePreview: string;
+}
+
 export default function Dashboard() {
   const [luaCode, setLuaCode] = useState("");
   const [isProtecting, setIsProtecting] = useState(false);
+  const [userScripts, setUserScripts] = useState<ScriptSummary[]>([]);
+  const [isLoadingScripts, setIsLoadingScripts] = useState(true);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
