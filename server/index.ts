@@ -26,6 +26,8 @@ export function createServer() {
   app.get("/api/user/:userId/scripts", handleGetUserScripts);
   app.get("/api/script/:scriptId", handleGetScript);
   app.put("/api/script/:scriptId", handleUpdateScript);
+  app.patch("/api/script/:scriptId/name", handleUpdateScriptName);
+  app.delete("/api/script/:scriptId", handleDeleteScript);
   app.get("/api/script/:scriptId/raw", handleScriptRaw);
 
   return app;
