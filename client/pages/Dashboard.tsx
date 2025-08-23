@@ -53,7 +53,13 @@ export default function Dashboard() {
     } catch (error) {
       console.error("Error protecting script:", error);
       setIsProtecting(false);
-      // You could add error handling UI here
+
+      // Show detailed error message to user
+      toast({
+        title: "Failed to Protect Script",
+        description: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
