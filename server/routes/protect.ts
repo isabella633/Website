@@ -80,13 +80,15 @@ print(greet("defendlua"))`,
 
 export const handleProtectScript: RequestHandler = (req, res) => {
   try {
-    const { code, owner } = req.body;
+    const { code, owner, name } = req.body;
 
     console.log('Protect script request:', {
       codeLength: code?.length || 0,
       owner: owner || 'undefined',
+      name: name || 'undefined',
       hasCode: !!code,
-      hasOwner: !!owner
+      hasOwner: !!owner,
+      hasName: !!name
     });
 
     if (!code || !owner) {
@@ -99,6 +101,7 @@ export const handleProtectScript: RequestHandler = (req, res) => {
 
     const scriptData: ScriptData = {
       id: scriptId,
+      name: name || `Script ${scriptId}`,
       code,
       createdAt: new Date().toISOString(),
       owner,
@@ -107,7 +110,7 @@ export const handleProtectScript: RequestHandler = (req, res) => {
     // Store the script
     scripts.set(scriptId, scriptData);
 
-    console.log('Script protected successfully:', { scriptId, codeLength: code.length });
+    console.log('Script protected successfully:', { scriptId, name: scriptData.name, codeLength: code.length });
     res.json({ scriptId, message: "Script protected successfully" });
   } catch (error) {
     console.error('Error protecting script:', error);
