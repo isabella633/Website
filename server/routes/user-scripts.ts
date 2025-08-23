@@ -21,6 +21,7 @@ export const handleGetUserScripts: RequestHandler = (req, res) => {
   // Return scripts with metadata but without full code content for performance
   const scriptSummaries = sortedScripts.map(script => ({
     id: script.id,
+    name: script.name,
     createdAt: script.createdAt,
     updatedAt: script.updatedAt || script.createdAt,
     codeLength: script.code.length,
