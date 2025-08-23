@@ -26,6 +26,7 @@ interface ScriptSummary {
 
 export default function Dashboard() {
   const [luaCode, setLuaCode] = useState("");
+  const [scriptName, setScriptName] = useState("");
   const [isProtecting, setIsProtecting] = useState(false);
   const [userScripts, setUserScripts] = useState<ScriptSummary[]>([]);
   const [isLoadingScripts, setIsLoadingScripts] = useState(true);
