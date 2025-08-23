@@ -87,6 +87,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/demo" element={<Demo />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
