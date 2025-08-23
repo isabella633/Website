@@ -70,6 +70,7 @@ export default function Dashboard() {
         },
         body: JSON.stringify({
           code: luaCode,
+          name: scriptName.trim() || `Script ${new Date().toLocaleDateString()}`,
           owner: user?.id,
         }),
       });
