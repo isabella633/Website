@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
@@ -12,7 +14,7 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Code2, LogOut, User, Lock, ExternalLink, Eye } from "lucide-react";
+import { Shield, Code2, LogOut, User, Lock, ExternalLink, Eye, Edit2, Trash2, Check, X } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 interface ScriptSummary {
