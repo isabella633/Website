@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Code2, LogOut, User, Lock } from "lucide-react";
+import { Shield, Code2, LogOut, User, Lock, ExternalLink, Eye } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 export default function Dashboard() {
