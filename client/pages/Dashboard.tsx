@@ -31,6 +31,27 @@ export default function Dashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const fetchUserScripts = async () => {
+    if (!user?.id) return;
+
+    try {
+      setIsLoadingScripts(true);
+      const response = await fetch(`/api/user/${user.id}/scripts`);
+      if (response.ok) {
+        const data = await response.json();
+        setUserScripts(data.scripts);
+      }
+    } catch (error) {
+      console.error('Error fetching user scripts:', error);
+    } finally {
+      setIsLoadingScripts(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserScripts();
+  }, [user?.id]);
+
   const handleProtectScript = async () => {
     if (!luaCode.trim()) {
       return;
