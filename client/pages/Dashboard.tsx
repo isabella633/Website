@@ -42,7 +42,15 @@ export default function Dashboard() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to protect script");
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        const errorMessage = response.status === 413
+          ? 'Script is too large. Please try with a smaller script.'
+          : response.status === 400
+          ? `Invalid request: ${errorData.error || 'Please check your script content'}`
+          : response.status === 500
+          ? 'Server error. Please try again later.'
+          : `Failed to protect script (${response.status})`;
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
