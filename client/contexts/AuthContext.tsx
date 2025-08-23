@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     // For demo purposes, accept any email/password combination
     if (email && password) {
       const newUser: User = {
-        id: Math.random().toString(36).substr(2, 9),
+        id: email === 'demo@example.com' ? 'demo-user' : Math.random().toString(36).substr(2, 9),
         email,
         username: email.split("@")[0],
       };
