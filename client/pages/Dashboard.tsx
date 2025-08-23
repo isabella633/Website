@@ -122,6 +122,89 @@ export default function Dashboard() {
     navigate("/login");
   };
 
+  const handleEditName = (script: ScriptSummary) => {
+    setEditingScriptId(script.id);
+    setEditingName(script.name);
+  };
+
+  const handleSaveName = async (scriptId: string) => {
+    if (!user?.id || !editingName.trim()) return;
+
+    try {
+      const response = await fetch(`/api/script/${scriptId}/name`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: editingName.trim(),
+          owner: user.id,
+        }),
+      });
+
+      if (response.ok) {
+        await fetchUserScripts();
+        setEditingScriptId(null);
+        setEditingName("");
+        toast({
+          title: "Script Renamed",
+          description: "Script name has been updated successfully.",
+        });
+      } else {
+        throw new Error('Failed to update script name');
+      }
+    } catch (error) {
+      console.error('Error updating script name:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update script name. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingScriptId(null);
+    setEditingName("");
+  };
+
+  const handleDeleteScript = async (scriptId: string, scriptName: string) => {
+    if (!user?.id) return;
+
+    if (!confirm(`Are you sure you want to delete "${scriptName}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/script/${scriptId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          owner: user.id,
+        }),
+      });
+
+      if (response.ok) {
+        await fetchUserScripts();
+        toast({
+          title: "Script Deleted",
+          description: `"${scriptName}" has been deleted successfully.`,
+        });
+      } else {
+        throw new Error('Failed to delete script');
+      }
+    } catch (error) {
+      console.error('Error deleting script:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete script. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       {/* Header */}
