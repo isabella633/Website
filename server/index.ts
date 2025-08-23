@@ -4,7 +4,7 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleScriptRaw } from "./routes/script";
 import { handleProtectScript } from "./routes/protect";
-import { handleGetScript, handleUpdateScript } from "./routes/script-data";
+import { handleGetScript, handleUpdateScript, handleUpdateScriptName, handleDeleteScript } from "./routes/script-data";
 import { handleGetUserScripts } from "./routes/user-scripts";
 
 export function createServer() {
