@@ -230,7 +230,8 @@ export default function Dashboard() {
             </p>
           </div>
 
-          <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-white flex items-center">
                 <Lock className="h-5 w-5 mr-2 text-green-500" />
@@ -308,7 +309,8 @@ hello()`}
                 </div>
               )}
             </CardContent>
-          </Card>
+            </Card>
+          </div>
         </div>
       </main>
     </div>
