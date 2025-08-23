@@ -92,6 +92,10 @@ export default function Dashboard() {
 
       setIsProtecting(false);
 
+      // Clear form
+      setLuaCode("");
+      setScriptName("");
+
       // Refresh the scripts list
       await fetchUserScripts();
 
