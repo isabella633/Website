@@ -11,26 +11,40 @@ interface ScriptData {
 export const scripts: Map<string, ScriptData> = new Map();
 
 export const handleProtectScript: RequestHandler = (req, res) => {
-  const { code, owner } = req.body;
+  try {
+    const { code, owner } = req.body;
 
-  if (!code || !owner) {
-    return res.status(400).json({ error: "Code and owner are required" });
+    console.log('Protect script request:', {
+      codeLength: code?.length || 0,
+      owner: owner || 'undefined',
+      hasCode: !!code,
+      hasOwner: !!owner
+    });
+
+    if (!code || !owner) {
+      console.log('Missing required fields:', { code: !!code, owner: !!owner });
+      return res.status(400).json({ error: "Code and owner are required" });
+    }
+
+    // Generate script ID
+    const scriptId = Math.random().toString(36).substr(2, 12);
+
+    const scriptData: ScriptData = {
+      id: scriptId,
+      code,
+      createdAt: new Date().toISOString(),
+      owner,
+    };
+
+    // Store the script
+    scripts.set(scriptId, scriptData);
+
+    console.log('Script protected successfully:', { scriptId, codeLength: code.length });
+    res.json({ scriptId, message: "Script protected successfully" });
+  } catch (error) {
+    console.error('Error protecting script:', error);
+    res.status(500).json({ error: "Internal server error" });
   }
-
-  // Generate script ID
-  const scriptId = Math.random().toString(36).substr(2, 12);
-
-  const scriptData: ScriptData = {
-    id: scriptId,
-    code,
-    createdAt: new Date().toISOString(),
-    owner,
-  };
-
-  // Store the script
-  scripts.set(scriptId, scriptData);
-
-  res.json({ scriptId, message: "Script protected successfully" });
 };
 
 export const getScript = (scriptId: string): ScriptData | undefined => {
