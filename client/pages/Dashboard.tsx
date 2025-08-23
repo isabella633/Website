@@ -17,6 +17,7 @@ import { toast } from "@/components/ui/use-toast";
 
 interface ScriptSummary {
   id: string;
+  name: string;
   createdAt: string;
   updatedAt: string;
   codeLength: number;
