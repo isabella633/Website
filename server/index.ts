@@ -6,6 +6,7 @@ import { handleScriptRaw } from "./routes/script";
 import { handleProtectScript } from "./routes/protect";
 import { handleGetScript, handleUpdateScript, handleUpdateScriptName, handleDeleteScript } from "./routes/script-data";
 import { handleGetUserScripts } from "./routes/user-scripts";
+import { handleLogin, handleSignup } from "./routes/auth";
 
 export function createServer() {
   const app = express();
