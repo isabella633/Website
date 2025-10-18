@@ -45,26 +45,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // For demo purposes, accept any email/password combination
-    if (email && password) {
-      const newUser: User = {
-        id: email === 'demo@example.com' ? 'demo-user' : Math.random().toString(36).substr(2, 9),
-        email,
-        username: email.split("@")[0],
-      };
-
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
+        setIsLoading(false);
+        return false;
+      }
+      const data = await res.json();
+      const newUser: User = data.user;
       setUser(newUser);
       localStorage.setItem("user", JSON.stringify(newUser));
       setIsLoading(false);
       return true;
+    } catch (e) {
+      setIsLoading(false);
+      return false;
     }
-
-    setIsLoading(false);
-    return false;
   };
 
   const signup = async (
@@ -73,26 +73,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     password: string,
   ): Promise<boolean> => {
     setIsLoading(true);
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // For demo purposes, accept any valid inputs
-    if (email && username && password) {
-      const newUser: User = {
-        id: Math.random().toString(36).substr(2, 9),
-        email,
-        username,
-      };
-
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, username, password }),
+      });
+      if (!res.ok) {
+        setIsLoading(false);
+        return false;
+      }
+      const data = await res.json();
+      const newUser: User = data.user;
       setUser(newUser);
       localStorage.setItem("user", JSON.stringify(newUser));
       setIsLoading(false);
       return true;
+    } catch (e) {
+      setIsLoading(false);
+      return false;
     }
-
-    setIsLoading(false);
-    return false;
   };
 
   const logout = () => {
