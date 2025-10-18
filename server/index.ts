@@ -23,6 +23,12 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+
+  // Auth
+  app.post("/api/auth/signup", handleSignup);
+  app.post("/api/auth/login", handleLogin);
+
+  // Scripts
   app.post("/api/protect", handleProtectScript);
   app.get("/api/user/:userId/scripts", handleGetUserScripts);
   app.get("/api/script/:scriptId", handleGetScript);
