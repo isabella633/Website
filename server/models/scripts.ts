@@ -18,9 +18,23 @@ export interface ScriptSummary {
   codePreview: string;
 }
 
+const memoryScripts = new Map<string, ScriptRow>();
+
 export async function createScript(params: { name: string; code: string; ownerId: string }): Promise<{ id: string } & Pick<ScriptRow, "name" | "code" | "created_at" | "owner_id">> {
-  const sql = getSql();
   const id = `scr_${Math.random().toString(36).slice(2, 12)}`;
+  if (!isDbConfigured()) {
+    const row: ScriptRow = {
+      id,
+      name: params.name,
+      code: params.code,
+      owner_id: params.ownerId,
+      created_at: new Date().toISOString(),
+      updated_at: null,
+    };
+    memoryScripts.set(id, row);
+    return { id, name: row.name, code: row.code, created_at: row.created_at, owner_id: row.owner_id };
+  }
+  const sql = getSql();
   const rows = await sql<{ id: string; name: string; code: string; created_at: string; owner_id: string }>`
     INSERT INTO scripts (id, name, code, owner_id)
     VALUES (${id}, ${params.name}, ${params.code}, ${params.ownerId})
