@@ -1,4 +1,4 @@
-import { getSql } from "../db";
+import { getSql, isDbConfigured } from "../db";
 
 export interface ScriptRow {
   id: string;
