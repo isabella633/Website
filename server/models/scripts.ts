@@ -20,7 +20,13 @@ export interface ScriptSummary {
 
 const memoryScripts = new Map<string, ScriptRow>();
 
-export async function createScript(params: { name: string; code: string; ownerId: string }): Promise<{ id: string } & Pick<ScriptRow, "name" | "code" | "created_at" | "owner_id">> {
+export async function createScript(params: {
+  name: string;
+  code: string;
+  ownerId: string;
+}): Promise<
+  { id: string } & Pick<ScriptRow, "name" | "code" | "created_at" | "owner_id">
+> {
   const id = `scr_${Math.random().toString(36).slice(2, 12)}`;
   if (!isDbConfigured()) {
     const row: ScriptRow = {
@@ -32,10 +38,22 @@ export async function createScript(params: { name: string; code: string; ownerId
       updated_at: null,
     };
     memoryScripts.set(id, row);
-    return { id, name: row.name, code: row.code, created_at: row.created_at, owner_id: row.owner_id };
+    return {
+      id,
+      name: row.name,
+      code: row.code,
+      created_at: row.created_at,
+      owner_id: row.owner_id,
+    };
   }
   const sql = getSql();
-  const rows = await sql<{ id: string; name: string; code: string; created_at: string; owner_id: string }>`
+  const rows = await sql<{
+    id: string;
+    name: string;
+    code: string;
+    created_at: string;
+    owner_id: string;
+  }>`
     INSERT INTO scripts (id, name, code, owner_id)
     VALUES (${id}, ${params.name}, ${params.code}, ${params.ownerId})
     RETURNING id, name, code, created_at, owner_id`;
@@ -47,20 +65,29 @@ export async function getScriptById(id: string): Promise<ScriptRow | null> {
     return memoryScripts.get(id) ?? null;
   }
   const sql = getSql();
-  const rows = await sql<ScriptRow>`SELECT id, name, code, created_at, updated_at, owner_id FROM scripts WHERE id = ${id}`;
+  const rows =
+    await sql<ScriptRow>`SELECT id, name, code, created_at, updated_at, owner_id FROM scripts WHERE id = ${id}`;
   return rows[0] ?? null;
 }
 
-export async function listScriptsByOwner(ownerId: string): Promise<ScriptSummary[]> {
+export async function listScriptsByOwner(
+  ownerId: string,
+): Promise<ScriptSummary[]> {
   if (!isDbConfigured()) {
-    const rows = Array.from(memoryScripts.values()).filter((s) => s.owner_id === ownerId).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    const rows = Array.from(memoryScripts.values())
+      .filter((s) => s.owner_id === ownerId)
+      .sort(
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      );
     return rows.map((s) => ({
       id: s.id,
       name: s.name,
       createdAt: s.created_at,
       updatedAt: s.updated_at,
       codeLength: s.code.length,
-      codePreview: s.code.substring(0, 200) + (s.code.length > 200 ? "..." : ""),
+      codePreview:
+        s.code.substring(0, 200) + (s.code.length > 200 ? "..." : ""),
     }));
   }
   const sql = getSql();
@@ -79,11 +106,19 @@ export async function listScriptsByOwner(ownerId: string): Promise<ScriptSummary
   }));
 }
 
-export async function updateScriptCode(id: string, ownerId: string, code: string) {
+export async function updateScriptCode(
+  id: string,
+  ownerId: string,
+  code: string,
+) {
   if (!isDbConfigured()) {
     const current = memoryScripts.get(id);
     if (!current || current.owner_id !== ownerId) return null;
-    const updated: ScriptRow = { ...current, code, updated_at: new Date().toISOString() };
+    const updated: ScriptRow = {
+      ...current,
+      code,
+      updated_at: new Date().toISOString(),
+    };
     memoryScripts.set(id, updated);
     return updated;
   }
@@ -96,11 +131,19 @@ export async function updateScriptCode(id: string, ownerId: string, code: string
   return rows[0] ?? null;
 }
 
-export async function updateScriptName(id: string, ownerId: string, name: string) {
+export async function updateScriptName(
+  id: string,
+  ownerId: string,
+  name: string,
+) {
   if (!isDbConfigured()) {
     const current = memoryScripts.get(id);
     if (!current || current.owner_id !== ownerId) return null;
-    const updated: ScriptRow = { ...current, name, updated_at: new Date().toISOString() };
+    const updated: ScriptRow = {
+      ...current,
+      name,
+      updated_at: new Date().toISOString(),
+    };
     memoryScripts.set(id, updated);
     return updated;
   }
@@ -121,6 +164,8 @@ export async function deleteScript(id: string, ownerId: string) {
     return { id };
   }
   const sql = getSql();
-  const rows = await sql<{ id: string }>`DELETE FROM scripts WHERE id = ${id} AND owner_id = ${ownerId} RETURNING id`;
+  const rows = await sql<{
+    id: string;
+  }>`DELETE FROM scripts WHERE id = ${id} AND owner_id = ${ownerId} RETURNING id`;
   return rows[0] ?? null;
 }

@@ -14,7 +14,19 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Code2, LogOut, User, Lock, ExternalLink, Eye, Edit2, Trash2, Check, X } from "lucide-react";
+import {
+  Shield,
+  Code2,
+  LogOut,
+  User,
+  Lock,
+  ExternalLink,
+  Eye,
+  Edit2,
+  Trash2,
+  Check,
+  X,
+} from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 interface ScriptSummary {
@@ -48,7 +60,7 @@ export default function Dashboard() {
         setUserScripts(data.scripts);
       }
     } catch (error) {
-      console.error('Error fetching user scripts:', error);
+      console.error("Error fetching user scripts:", error);
     } finally {
       setIsLoadingScripts(false);
     }
@@ -74,20 +86,24 @@ export default function Dashboard() {
         },
         body: JSON.stringify({
           code: luaCode,
-          name: scriptName.trim() || `Script ${new Date().toLocaleDateString()}`,
+          name:
+            scriptName.trim() || `Script ${new Date().toLocaleDateString()}`,
           owner: user?.id,
         }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-        const errorMessage = response.status === 413
-          ? 'Script is too large. Please try with a smaller script.'
-          : response.status === 400
-          ? `Invalid request: ${errorData.error || 'Please check your script content'}`
-          : response.status === 500
-          ? 'Server error. Please try again later.'
-          : `Failed to protect script (${response.status})`;
+        const errorData = await response
+          .json()
+          .catch(() => ({ error: "Unknown error" }));
+        const errorMessage =
+          response.status === 413
+            ? "Script is too large. Please try with a smaller script."
+            : response.status === 400
+              ? `Invalid request: ${errorData.error || "Please check your script content"}`
+              : response.status === 500
+                ? "Server error. Please try again later."
+                : `Failed to protect script (${response.status})`;
         throw new Error(errorMessage);
       }
 
@@ -111,7 +127,10 @@ export default function Dashboard() {
       // Show detailed error message to user
       toast({
         title: "Failed to Protect Script",
-        description: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     }
@@ -132,9 +151,9 @@ export default function Dashboard() {
 
     try {
       const response = await fetch(`/api/script/${scriptId}/name`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: editingName.trim(),
@@ -151,10 +170,10 @@ export default function Dashboard() {
           description: "Script name has been updated successfully.",
         });
       } else {
-        throw new Error('Failed to update script name');
+        throw new Error("Failed to update script name");
       }
     } catch (error) {
-      console.error('Error updating script name:', error);
+      console.error("Error updating script name:", error);
       toast({
         title: "Error",
         description: "Failed to update script name. Please try again.",
@@ -171,15 +190,19 @@ export default function Dashboard() {
   const handleDeleteScript = async (scriptId: string, scriptName: string) => {
     if (!user?.id) return;
 
-    if (!confirm(`Are you sure you want to delete "${scriptName}"? This action cannot be undone.`)) {
+    if (
+      !confirm(
+        `Are you sure you want to delete "${scriptName}"? This action cannot be undone.`,
+      )
+    ) {
       return;
     }
 
     try {
       const response = await fetch(`/api/script/${scriptId}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           owner: user.id,
@@ -193,10 +216,10 @@ export default function Dashboard() {
           description: `"${scriptName}" has been deleted successfully.`,
         });
       } else {
-        throw new Error('Failed to delete script');
+        throw new Error("Failed to delete script");
       }
     } catch (error) {
-      console.error('Error deleting script:', error);
+      console.error("Error deleting script:", error);
       toast({
         title: "Error",
         description: "Failed to delete script. Please try again.",
@@ -242,8 +265,12 @@ export default function Dashboard() {
           {/* My Scripts Section */}
           <div className="mb-12">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-white mb-2">My Protected Scripts</h2>
-              <p className="text-gray-400">View and manage all your protected Lua scripts</p>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                My Protected Scripts
+              </h2>
+              <p className="text-gray-400">
+                View and manage all your protected Lua scripts
+              </p>
             </div>
 
             {isLoadingScripts ? (
@@ -257,16 +284,22 @@ export default function Dashboard() {
               <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
                 <CardContent className="p-8 text-center">
                   <Code2 className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-                  <h3 className="text-white text-lg font-medium mb-2">No Scripts Yet</h3>
+                  <h3 className="text-white text-lg font-medium mb-2">
+                    No Scripts Yet
+                  </h3>
                   <p className="text-gray-400 mb-4">
-                    You haven't protected any scripts yet. Create your first protected script below!
+                    You haven't protected any scripts yet. Create your first
+                    protected script below!
                   </p>
                 </CardContent>
               </Card>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {userScripts.map((script) => (
-                  <Card key={script.id} className="border-gray-700 bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/50 transition-colors">
+                  <Card
+                    key={script.id}
+                    className="border-gray-700 bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/50 transition-colors"
+                  >
                     <CardHeader className="pb-3">
                       <div className="space-y-3">
                         {/* Script Name Row */}
@@ -279,8 +312,9 @@ export default function Dashboard() {
                                 className="bg-gray-900/50 border-gray-600 text-white text-sm h-8"
                                 placeholder="Script name"
                                 onKeyDown={(e) => {
-                                  if (e.key === 'Enter') handleSaveName(script.id);
-                                  if (e.key === 'Escape') handleCancelEdit();
+                                  if (e.key === "Enter")
+                                    handleSaveName(script.id);
+                                  if (e.key === "Escape") handleCancelEdit();
                                 }}
                                 autoFocus
                               />
@@ -319,7 +353,9 @@ export default function Dashboard() {
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  onClick={() => handleDeleteScript(script.id, script.name)}
+                                  onClick={() =>
+                                    handleDeleteScript(script.id, script.name)
+                                  }
                                   className="h-8 w-8 p-0 text-gray-400 hover:text-red-400"
                                   title="Delete script"
                                 >
@@ -332,7 +368,10 @@ export default function Dashboard() {
 
                         {/* Actions Row */}
                         <div className="flex items-center justify-between">
-                          <Badge variant="secondary" className="bg-green-600 text-white text-xs">
+                          <Badge
+                            variant="secondary"
+                            className="bg-green-600 text-white text-xs"
+                          >
                             {script.codeLength} chars
                           </Badge>
                           <div className="flex space-x-1">
@@ -348,7 +387,12 @@ export default function Dashboard() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => window.open(`/api/script/${script.id}/raw?owner=${encodeURIComponent(user?.id || "")}`, '_blank')}
+                              onClick={() =>
+                                window.open(
+                                  `/api/script/${script.id}/raw?owner=${encodeURIComponent(user?.id || "")}`,
+                                  "_blank",
+                                )
+                              }
                               className="h-8 w-8 p-0 text-gray-400 hover:text-white"
                               title="View raw script"
                             >
@@ -366,9 +410,15 @@ export default function Dashboard() {
                           </code>
                         </div>
                         <div className="text-xs text-gray-500">
-                          <div>Created: {new Date(script.createdAt).toLocaleDateString()}</div>
+                          <div>
+                            Created:{" "}
+                            {new Date(script.createdAt).toLocaleDateString()}
+                          </div>
                           {script.updatedAt !== script.createdAt && (
-                            <div>Updated: {new Date(script.updatedAt).toLocaleDateString()}</div>
+                            <div>
+                              Updated:{" "}
+                              {new Date(script.updatedAt).toLocaleDateString()}
+                            </div>
                           )}
                         </div>
                       </div>
@@ -392,101 +442,108 @@ export default function Dashboard() {
 
           <div className="max-w-4xl mx-auto">
             <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center">
-                <Lock className="h-5 w-5 mr-2 text-green-500" />
-                Script Protection Panel
-              </CardTitle>
-              <CardDescription className="text-gray-400">
-                Upload your Lua script code for secure protection and
-                management.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <Alert className="border-yellow-500/50 bg-yellow-500/10">
-                <AlertDescription className="text-yellow-400">
-                  <strong>Note:</strong> We don't perform syntax validation on
-                  your code. Please ensure your Lua script is error-free before
-                  protecting it, as the code will be stored and served exactly
-                  as you provide it.
-                </AlertDescription>
-              </Alert>
+              <CardHeader>
+                <CardTitle className="text-white flex items-center">
+                  <Lock className="h-5 w-5 mr-2 text-green-500" />
+                  Script Protection Panel
+                </CardTitle>
+                <CardDescription className="text-gray-400">
+                  Upload your Lua script code for secure protection and
+                  management.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <Alert className="border-yellow-500/50 bg-yellow-500/10">
+                  <AlertDescription className="text-yellow-400">
+                    <strong>Note:</strong> We don't perform syntax validation on
+                    your code. Please ensure your Lua script is error-free
+                    before protecting it, as the code will be stored and served
+                    exactly as you provide it.
+                  </AlertDescription>
+                </Alert>
 
-              <div className="space-y-6">
-                {/* Script Name Input */}
-                <div className="space-y-2">
-                  <Label htmlFor="scriptName" className="text-sm font-medium text-gray-300">
-                    Script Name
-                  </Label>
-                  <Input
-                    id="scriptName"
-                    placeholder="Enter a name for your script (optional)"
-                    value={scriptName}
-                    onChange={(e) => setScriptName(e.target.value)}
-                    className="bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500"
-                  />
-                </div>
-
-                {/* Script Code Section */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="luaCode" className="text-sm font-medium text-gray-300">
-                      Lua Script Code
-                    </Label>
-                    <Badge
-                      variant="secondary"
-                      className="bg-gray-700 text-gray-300"
+                <div className="space-y-6">
+                  {/* Script Name Input */}
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="scriptName"
+                      className="text-sm font-medium text-gray-300"
                     >
-                      .lua
-                    </Badge>
+                      Script Name
+                    </Label>
+                    <Input
+                      id="scriptName"
+                      placeholder="Enter a name for your script (optional)"
+                      value={scriptName}
+                      onChange={(e) => setScriptName(e.target.value)}
+                      className="bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500"
+                    />
                   </div>
 
-                  <Textarea
-                    id="luaCode"
-                    placeholder={`-- Enter your Lua code here
+                  {/* Script Code Section */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label
+                        htmlFor="luaCode"
+                        className="text-sm font-medium text-gray-300"
+                      >
+                        Lua Script Code
+                      </Label>
+                      <Badge
+                        variant="secondary"
+                        className="bg-gray-700 text-gray-300"
+                      >
+                        .lua
+                      </Badge>
+                    </div>
+
+                    <Textarea
+                      id="luaCode"
+                      placeholder={`-- Enter your Lua code here
 -- Example:
 local function hello()
     print("Hello, World!")
 end
 
 hello()`}
-                    value={luaCode}
-                    onChange={(e) => setLuaCode(e.target.value)}
-                    className="min-h-[300px] bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500 font-mono text-sm"
-                    style={{
-                      fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-                    }}
-                  />
+                      value={luaCode}
+                      onChange={(e) => setLuaCode(e.target.value)}
+                      className="min-h-[300px] bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500 font-mono text-sm"
+                      style={{
+                        fontFamily:
+                          'Consolas, Monaco, "Courier New", monospace',
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex justify-center">
-                <Button
-                  onClick={handleProtectScript}
-                  disabled={!luaCode.trim() || isProtecting}
-                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg"
-                  size="lg"
-                >
-                  {isProtecting ? (
-                    <>
-                      <Shield className="h-5 w-5 mr-2 animate-pulse" />
-                      Protecting Script...
-                    </>
-                  ) : (
-                    <>
-                      <Shield className="h-5 w-5 mr-2" />
-                      Protect Script
-                    </>
-                  )}
-                </Button>
-              </div>
-
-              {luaCode.trim() && (
-                <div className="text-center text-sm text-gray-400">
-                  Code length: {luaCode.length} characters
+                <div className="flex justify-center">
+                  <Button
+                    onClick={handleProtectScript}
+                    disabled={!luaCode.trim() || isProtecting}
+                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg"
+                    size="lg"
+                  >
+                    {isProtecting ? (
+                      <>
+                        <Shield className="h-5 w-5 mr-2 animate-pulse" />
+                        Protecting Script...
+                      </>
+                    ) : (
+                      <>
+                        <Shield className="h-5 w-5 mr-2" />
+                        Protect Script
+                      </>
+                    )}
+                  </Button>
                 </div>
-              )}
-            </CardContent>
+
+                {luaCode.trim() && (
+                  <div className="text-center text-sm text-gray-400">
+                    Code length: {luaCode.length} characters
+                  </div>
+                )}
+              </CardContent>
             </Card>
           </div>
         </div>
