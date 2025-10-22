@@ -52,6 +52,17 @@ export async function getScriptById(id: string): Promise<ScriptRow | null> {
 }
 
 export async function listScriptsByOwner(ownerId: string): Promise<ScriptSummary[]> {
+  if (!isDbConfigured()) {
+    const rows = Array.from(memoryScripts.values()).filter((s) => s.owner_id === ownerId).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    return rows.map((s) => ({
+      id: s.id,
+      name: s.name,
+      createdAt: s.created_at,
+      updatedAt: s.updated_at,
+      codeLength: s.code.length,
+      codePreview: s.code.substring(0, 200) + (s.code.length > 200 ? "..." : ""),
+    }));
+  }
   const sql = getSql();
   const rows = await sql<ScriptRow>`
     SELECT id, name, code, created_at, updated_at, owner_id
