@@ -38,9 +38,24 @@ export async function findUserById(id: string): Promise<PublicUser | null> {
 }
 
 export async function createUser(email: string, username: string, password: string): Promise<PublicUser> {
-  const sql = getSql();
   const passwordHash = await bcrypt.hash(password, 10);
   const id = `usr_${Math.random().toString(36).slice(2, 12)}`;
+  if (!isDbConfigured()) {
+    if (memoryUsersByEmail.has(email)) {
+      throw new Error("Email already in use");
+    }
+    const row: UserRow = {
+      id,
+      email,
+      username,
+      password_hash: passwordHash,
+      created_at: new Date().toISOString(),
+    };
+    memoryUsersByEmail.set(email, row);
+    memoryUsersById.set(id, row);
+    return { id, email, username };
+  }
+  const sql = getSql();
   const rows = await sql<PublicUser>`INSERT INTO users (id, email, username, password_hash) VALUES (${id}, ${email}, ${username}, ${passwordHash}) RETURNING id, email, username`;
   return rows[0];
 }
