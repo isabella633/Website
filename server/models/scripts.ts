@@ -43,6 +43,9 @@ export async function createScript(params: { name: string; code: string; ownerId
 }
 
 export async function getScriptById(id: string): Promise<ScriptRow | null> {
+  if (!isDbConfigured()) {
+    return memoryScripts.get(id) ?? null;
+  }
   const sql = getSql();
   const rows = await sql<ScriptRow>`SELECT id, name, code, created_at, updated_at, owner_id FROM scripts WHERE id = ${id}`;
   return rows[0] ?? null;
