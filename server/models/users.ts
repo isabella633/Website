@@ -28,6 +28,10 @@ export async function findUserByEmail(email: string): Promise<UserRow | null> {
 }
 
 export async function findUserById(id: string): Promise<PublicUser | null> {
+  if (!isDbConfigured()) {
+    const u = memoryUsersById.get(id);
+    return u ? { id: u.id, email: u.email, username: u.username } : null;
+  }
   const sql = getSql();
   const rows = await sql<PublicUser>`SELECT id, email, username FROM users WHERE id = ${id}`;
   return rows[0] ?? null;
