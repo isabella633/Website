@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { getSql } from "../db";
+import { getSql, isDbConfigured } from "../db";
 
 export interface UserRow {
   id: string;
