@@ -348,7 +348,7 @@ export default function Dashboard() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => window.open(`/api/script/${script.id}/raw`, '_blank')}
+                              onClick={() => window.open(`/api/script/${script.id}/raw?owner=${encodeURIComponent(user?.id || "")}`, '_blank')}
                               className="h-8 w-8 p-0 text-gray-400 hover:text-white"
                               title="View raw script"
                             >
