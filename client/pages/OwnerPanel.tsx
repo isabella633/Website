@@ -42,7 +42,7 @@ export default function OwnerPanel() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const rawLink = `${window.location.origin}/api/script/${scriptId}/raw`;
+  const rawLink = `${window.location.origin}/api/script/${scriptId}/raw?owner=${encodeURIComponent(user?.id || "")}`;
 
   useEffect(() => {
     const fetchScriptData = async () => {
