@@ -97,6 +97,13 @@ export async function updateScriptCode(id: string, ownerId: string, code: string
 }
 
 export async function updateScriptName(id: string, ownerId: string, name: string) {
+  if (!isDbConfigured()) {
+    const current = memoryScripts.get(id);
+    if (!current || current.owner_id !== ownerId) return null;
+    const updated: ScriptRow = { ...current, name, updated_at: new Date().toISOString() };
+    memoryScripts.set(id, updated);
+    return updated;
+  }
   const sql = getSql();
   const rows = await sql<ScriptRow>`
     UPDATE scripts
@@ -107,6 +114,12 @@ export async function updateScriptName(id: string, ownerId: string, name: string
 }
 
 export async function deleteScript(id: string, ownerId: string) {
+  if (!isDbConfigured()) {
+    const current = memoryScripts.get(id);
+    if (!current || current.owner_id !== ownerId) return null;
+    memoryScripts.delete(id);
+    return { id };
+  }
   const sql = getSql();
   const rows = await sql<{ id: string }>`DELETE FROM scripts WHERE id = ${id} AND owner_id = ${ownerId} RETURNING id`;
   return rows[0] ?? null;
