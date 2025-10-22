@@ -15,7 +15,13 @@ export interface PublicUser {
   username: string;
 }
 
+const memoryUsersByEmail = new Map<string, UserRow>();
+const memoryUsersById = new Map<string, UserRow>();
+
 export async function findUserByEmail(email: string): Promise<UserRow | null> {
+  if (!isDbConfigured()) {
+    return memoryUsersByEmail.get(email) ?? null;
+  }
   const sql = getSql();
   const rows = await sql<UserRow>`SELECT id, email, username, password_hash, created_at FROM users WHERE email = ${email}`;
   return rows[0] ?? null;
