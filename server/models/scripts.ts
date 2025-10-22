@@ -80,6 +80,13 @@ export async function listScriptsByOwner(ownerId: string): Promise<ScriptSummary
 }
 
 export async function updateScriptCode(id: string, ownerId: string, code: string) {
+  if (!isDbConfigured()) {
+    const current = memoryScripts.get(id);
+    if (!current || current.owner_id !== ownerId) return null;
+    const updated: ScriptRow = { ...current, code, updated_at: new Date().toISOString() };
+    memoryScripts.set(id, updated);
+    return updated;
+  }
   const sql = getSql();
   const rows = await sql<ScriptRow>`
     UPDATE scripts
