@@ -387,24 +387,12 @@ export default function OwnerPanel() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-gray-300">Script ID</Label>
-                      <div className="flex space-x-2 mt-1">
-                        <Input
-                          value={scriptData.id}
-                          readOnly
-                          className="bg-gray-900/50 border-gray-600 text-white font-mono text-sm"
-                        />
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() =>
-                            copyToClipboard(scriptData.id, "Script ID")
-                          }
-                          className="border-gray-600 text-gray-300 hover:bg-gray-700"
-                        >
-                          <Copy className="h-4 w-4" />
-                        </Button>
-                      </div>
+                      <Label className="text-gray-300">Script Name</Label>
+                      <Input
+                        value={scriptData.name || `Script ${new Date(scriptData.createdAt).toLocaleDateString()}`}
+                        readOnly
+                        className="bg-gray-900/50 border-gray-600 text-white mt-1"
+                      />
                     </div>
 
                     <div>
@@ -414,6 +402,27 @@ export default function OwnerPanel() {
                         readOnly
                         className="bg-gray-900/50 border-gray-600 text-white mt-1"
                       />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label className="text-gray-300">Script ID</Label>
+                    <div className="flex space-x-2 mt-1">
+                      <Input
+                        value={scriptData.id}
+                        readOnly
+                        className="bg-gray-900/50 border-gray-600 text-white font-mono text-sm"
+                      />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          copyToClipboard(scriptData.id, "Script ID")
+                        }
+                        className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                      >
+                        <Copy className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
 
