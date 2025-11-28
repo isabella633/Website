@@ -270,6 +270,13 @@ export default function OwnerPanel() {
               >
                 Script Info
               </TabsTrigger>
+              <TabsTrigger
+                value="settings"
+                className="data-[state=active]:bg-green-600"
+              >
+                <Settings className="h-4 w-4 mr-2" />
+                Settings
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="editor">
