@@ -15,6 +15,7 @@ interface AuthContextType {
     password: string,
   ) => Promise<boolean>;
   logout: () => void;
+  updateUsername: (newUsername: string) => void;
   isLoading: boolean;
 }
 
