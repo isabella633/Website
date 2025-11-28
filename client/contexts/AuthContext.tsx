@@ -110,11 +110,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.removeItem("user");
   };
 
+  const updateUsername = (newUsername: string) => {
+    if (user) {
+      const updatedUser = { ...user, username: newUsername };
+      setUser(updatedUser);
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    }
+  };
+
   const value = {
     user,
     login,
     signup,
     logout,
+    updateUsername,
     isLoading,
   };
 
