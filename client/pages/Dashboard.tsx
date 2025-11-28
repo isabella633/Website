@@ -497,8 +497,9 @@ export default function Dashboard() {
                       </Badge>
                     </div>
 
-                    <Textarea
-                      id="luaCode"
+                    <CodeEditor
+                      value={luaCode}
+                      onChange={setLuaCode}
                       placeholder={`-- Enter your Lua code here
 -- Example:
 local function hello()
@@ -506,13 +507,6 @@ local function hello()
 end
 
 hello()`}
-                      value={luaCode}
-                      onChange={(e) => setLuaCode(e.target.value)}
-                      className="min-h-[300px] bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500 font-mono text-sm"
-                      style={{
-                        fontFamily:
-                          'Consolas, Monaco, "Courier New", monospace',
-                      }}
                     />
                   </div>
                 </div>
