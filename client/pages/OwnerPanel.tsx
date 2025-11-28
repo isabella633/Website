@@ -24,6 +24,7 @@ import {
   Save,
   ExternalLink,
   ArrowLeft,
+  Settings,
 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
@@ -32,6 +33,7 @@ interface ScriptData {
   code: string;
   createdAt: string;
   owner: string;
+  name?: string;
 }
 
 export default function OwnerPanel() {
