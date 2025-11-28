@@ -20,8 +20,8 @@ export function CodeEditor({
   );
 
   return (
-    <div className="relative border border-gray-600 rounded-md bg-gray-900/50 overflow-hidden">
-      <div className="flex">
+    <div className="relative border border-gray-600 rounded-md bg-gray-900/50 overflow-hidden min-h-[300px]">
+      <div className="flex h-full">
         <div className="bg-gray-950 text-gray-500 text-sm font-mono px-3 py-2 text-right border-r border-gray-600 select-none">
           {lineNumbers.map((num) => (
             <div key={num} className="h-6 leading-6">
