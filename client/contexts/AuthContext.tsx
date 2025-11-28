@@ -36,9 +36,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     // Check if user is logged in from localStorage
-    const savedUser = localStorage.getItem("user");
+    let savedUser = localStorage.getItem("user");
     if (savedUser) {
       setUser(JSON.parse(savedUser));
+    } else {
+      // Auto-generate a new user if none exists
+      const newUser: User = {
+        id: `usr_${Math.random().toString(36).slice(2, 12)}`,
+        email: `user_${Math.random().toString(36).slice(2, 12)}@defendlua.local`,
+        username: `user_${Math.random().toString(36).slice(2, 8)}`,
+      };
+      setUser(newUser);
+      localStorage.setItem("user", JSON.stringify(newUser));
     }
     setIsLoading(false);
   }, []);
