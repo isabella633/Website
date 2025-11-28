@@ -29,7 +29,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return user ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
-// Public Route component (redirects to dashboard if already logged in)
+// Public Route component (redirects to dashboard)
 const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoading } = useAuth();
 
@@ -41,7 +41,7 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  return !user ? <>{children}</> : <Navigate to="/dashboard" replace />;
+  return user ? <Navigate to="/dashboard" replace /> : <>{children}</>;
 };
 
 const AppRoutes = () => {
