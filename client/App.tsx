@@ -45,14 +45,22 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 const AppRoutes = () => {
+  const { user, isLoading } = useAuth();
+
   return (
     <Routes>
       <Route
         path="/"
         element={
-          <PublicRoute>
+          isLoading ? (
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
+              <div className="text-white">Loading...</div>
+            </div>
+          ) : user ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
             <Index />
-          </PublicRoute>
+          )
         }
       />
       <Route
