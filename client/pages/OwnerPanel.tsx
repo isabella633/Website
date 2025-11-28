@@ -59,6 +59,7 @@ export default function OwnerPanel() {
             if (data.owner === user.id) {
               setScriptData(data);
               setEditedCode(data.code);
+              setEditingScriptName(data.name || `Script ${new Date(data.createdAt).toLocaleDateString()}`);
             } else {
               navigate("/dashboard");
             }
@@ -71,6 +72,10 @@ export default function OwnerPanel() {
         }
       }
     };
+
+    if (user?.username) {
+      setEditingUsername(user.username);
+    }
 
     fetchScriptData();
   }, [scriptId, user, navigate]);
