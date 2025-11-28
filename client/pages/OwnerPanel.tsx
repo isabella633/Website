@@ -59,7 +59,10 @@ export default function OwnerPanel() {
             if (data.owner === user.id) {
               setScriptData(data);
               setEditedCode(data.code);
-              setEditingScriptName(data.name || `Script ${new Date(data.createdAt).toLocaleDateString()}`);
+              setEditingScriptName(
+                data.name ||
+                  `Script ${new Date(data.createdAt).toLocaleDateString()}`,
+              );
             } else {
               navigate("/dashboard");
             }
@@ -389,7 +392,10 @@ export default function OwnerPanel() {
                     <div>
                       <Label className="text-gray-300">Script Name</Label>
                       <Input
-                        value={scriptData.name || `Script ${new Date(scriptData.createdAt).toLocaleDateString()}`}
+                        value={
+                          scriptData.name ||
+                          `Script ${new Date(scriptData.createdAt).toLocaleDateString()}`
+                        }
                         readOnly
                         className="bg-gray-900/50 border-gray-600 text-white mt-1"
                       />
@@ -449,9 +455,7 @@ export default function OwnerPanel() {
             <TabsContent value="settings">
               <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-white">
-                    Settings
-                  </CardTitle>
+                  <CardTitle className="text-white">Settings</CardTitle>
                   <CardDescription className="text-gray-400">
                     Update your profile and script settings
                   </CardDescription>
@@ -473,7 +477,10 @@ export default function OwnerPanel() {
                         />
                         <Button
                           onClick={handleSaveUsername}
-                          disabled={editingUsername === user?.username || !editingUsername.trim()}
+                          disabled={
+                            editingUsername === user?.username ||
+                            !editingUsername.trim()
+                          }
                           className="bg-green-600 hover:bg-green-700"
                         >
                           <Save className="h-4 w-4 mr-2" />
@@ -504,7 +511,9 @@ export default function OwnerPanel() {
                           onClick={handleSaveScriptName}
                           disabled={
                             isSavingSettings ||
-                            editingScriptName === (scriptData?.name || `Script ${new Date(scriptData?.createdAt || "").toLocaleDateString()}`) ||
+                            editingScriptName ===
+                              (scriptData?.name ||
+                                `Script ${new Date(scriptData?.createdAt || "").toLocaleDateString()}`) ||
                             !editingScriptName.trim()
                           }
                           className="bg-green-600 hover:bg-green-700"
