@@ -15,8 +15,9 @@ export function CodeEditor({
   className = "",
 }: CodeEditorProps) {
   const lines = value.split("\n").length;
-  const lineNumbers = Array.from({ length: Math.max(lines, 1) }, (_, i) =>
-    i + 1
+  const lineNumbers = Array.from(
+    { length: Math.max(lines, 1) },
+    (_, i) => i + 1,
   );
 
   return (
