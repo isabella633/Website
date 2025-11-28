@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Shield, Code2 } from "lucide-react";
+import { Shield, Code2, Home } from "lucide-react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -43,8 +43,17 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-      <Card className="w-full max-w-md border-gray-700 bg-gray-800/50 backdrop-blur-sm">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <header className="border-b border-gray-700 bg-gray-800/50 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-4">
+          <Link to="/" className="inline-flex items-center space-x-2 text-gray-300 hover:text-white transition-colors">
+            <Home className="h-5 w-5" />
+            <span className="text-sm font-medium">Back to Home</span>
+          </Link>
+        </div>
+      </header>
+      <div className="min-h-[calc(100vh-73px)] flex items-center justify-center p-4">
+        <Card className="w-full max-w-md border-gray-700 bg-gray-800/50 backdrop-blur-sm">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <div className="relative">
@@ -121,6 +130,7 @@ export default function Login() {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
