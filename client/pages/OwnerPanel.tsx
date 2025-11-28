@@ -41,7 +41,10 @@ export default function OwnerPanel() {
   const [scriptData, setScriptData] = useState<ScriptData | null>(null);
   const [editedCode, setEditedCode] = useState("");
   const [isSaving, setIsSaving] = useState(false);
-  const { user, logout } = useAuth();
+  const [editingUsername, setEditingUsername] = useState("");
+  const [editingScriptName, setEditingScriptName] = useState("");
+  const [isSavingSettings, setIsSavingSettings] = useState(false);
+  const { user, logout, updateUsername } = useAuth();
   const navigate = useNavigate();
 
   const rawLink = `${window.location.origin}/api/script/${scriptId}/raw?owner=${encodeURIComponent(user?.id || "")}`;
