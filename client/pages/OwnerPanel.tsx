@@ -128,9 +128,66 @@ export default function OwnerPanel() {
     });
   };
 
+  const handleSaveUsername = async () => {
+    if (!editingUsername.trim()) {
+      toast({
+        title: "Error",
+        description: "Username cannot be empty.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    updateUsername(editingUsername.trim());
+    toast({
+      title: "Username Updated",
+      description: "Your username has been changed successfully.",
+    });
+  };
+
+  const handleSaveScriptName = async () => {
+    if (!scriptData || !user?.id) return;
+
+    setIsSavingSettings(true);
+
+    try {
+      const response = await fetch(`/api/script/${scriptId}/name`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: editingScriptName.trim(),
+          owner: user.id,
+        }),
+      });
+
+      if (response.ok) {
+        const updatedData = (await response.json()) as ScriptData;
+        setScriptData(updatedData);
+        setIsSavingSettings(false);
+
+        toast({
+          title: "Script Name Updated",
+          description: "Your script name has been changed successfully.",
+        });
+      } else {
+        throw new Error("Failed to update script name");
+      }
+    } catch (error) {
+      console.error("Error saving script name:", error);
+      setIsSavingSettings(false);
+      toast({
+        title: "Error",
+        description: "Failed to update script name. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
   if (!scriptData) {
