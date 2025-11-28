@@ -436,6 +436,91 @@ export default function OwnerPanel() {
                 </CardContent>
               </Card>
             </TabsContent>
+
+            <TabsContent value="settings">
+              <Card className="border-gray-700 bg-gray-800/50 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-white">
+                    Settings
+                  </CardTitle>
+                  <CardDescription className="text-gray-400">
+                    Update your profile and script settings
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-4">
+                    <h3 className="text-white font-medium">Profile Settings</h3>
+                    <div className="space-y-2">
+                      <Label htmlFor="username" className="text-gray-300">
+                        Username
+                      </Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="username"
+                          value={editingUsername}
+                          onChange={(e) => setEditingUsername(e.target.value)}
+                          className="bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500"
+                          placeholder="Enter your username"
+                        />
+                        <Button
+                          onClick={handleSaveUsername}
+                          disabled={editingUsername === user?.username || !editingUsername.trim()}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          <Save className="h-4 w-4 mr-2" />
+                          Save
+                        </Button>
+                      </div>
+                      <p className="text-gray-500 text-sm">
+                        This is your public profile name
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-gray-700 pt-6 space-y-4">
+                    <h3 className="text-white font-medium">Script Settings</h3>
+                    <div className="space-y-2">
+                      <Label htmlFor="scriptName" className="text-gray-300">
+                        Script Name
+                      </Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="scriptName"
+                          value={editingScriptName}
+                          onChange={(e) => setEditingScriptName(e.target.value)}
+                          className="bg-gray-900/50 border-gray-600 text-white placeholder:text-gray-500"
+                          placeholder="Enter script name"
+                        />
+                        <Button
+                          onClick={handleSaveScriptName}
+                          disabled={
+                            isSavingSettings ||
+                            editingScriptName === (scriptData?.name || `Script ${new Date(scriptData?.createdAt || "").toLocaleDateString()}`) ||
+                            !editingScriptName.trim()
+                          }
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          {isSavingSettings ? (
+                            <>
+                              <Save className="h-4 w-4 mr-2 animate-pulse" />
+                              Saving...
+                            </>
+                          ) : (
+                            <>
+                              <Save className="h-4 w-4 mr-2" />
+                              Save
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                      <p className="text-gray-500 text-sm">
+                        Give your script a descriptive name
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
           </Tabs>
         </div>
       </main>
